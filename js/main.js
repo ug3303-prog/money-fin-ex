@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 플레이어가 입력한 이름 리스트 수집
         const names = UI.getPlayerNames();
         
-        // gameState.js를 통해 전역 상태 초기화
+        // gamestate.js를 통해 전역 상태 초기화
         initGameState(selectedPlayerCount, names);
 
         // 콘솔로 초기화 완료된 플레이어 정보 출력 (정상 설정 검증용)
