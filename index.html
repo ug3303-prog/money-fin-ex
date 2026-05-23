@@ -45,9 +45,138 @@
             </section>
 
             <footer class="lobby-footer">
-                <button type="button" id="btn-start-game" class="btn-primary large hidden">🎮 게임 시작!</button>
+                <button type="button" id="btn-show-guide" class="btn-primary large btn-guide-toggle">📖 게임방법</button>
+                <button type="button" id="btn-start-game" class="btn-primary large hidden" style="margin-top: 10px;">🎮 게임 시작!</button>
             </footer>
         </main>
+
+        <!-- ==================== 1-b. 게임방법 화면 (Guide) (2단계 추가) ==================== -->
+        <main id="screen-guide" class="screen">
+            <header class="guide-header">
+                <button type="button" id="btn-back-to-lobby" class="btn-back">← 돌아가기</button>
+                <h1 class="guide-main-title">📖 게임방법</h1>
+            </header>
+
+            <section class="guide-content">
+                <!-- 섹션 1: 게임 준비 -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">🎲 게임 준비</h2>
+                    <div class="guide-card-body">
+                        <p>👥 2~4명이 함께 해요</p>
+                        <p>💰 각자 100골드를 받아요</p>
+                        <p>🎯 가장 많은 골드를 모으면 승리!</p>
+                    </div>
+                </div>
+
+                <!-- 섹션 2: 어떻게 진행하나요? -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">🎮 어떻게 진행하나요?</h2>
+                    <div class="guide-card-body">
+                        <p>1️⃣ 주사위를 굴려요 (1~6 중 하나)</p>
+                        <p>2️⃣ 나온 숫자만큼 내 말이 이동해요</p>
+                        <p>3️⃣ 도착한 칸의 효과를 받아요</p>
+                        <p>4️⃣ 다음 친구에게 차례를 넘겨요</p>
+                        <p>🏁 보드를 한 바퀴 돌면 게임 끝!</p>
+                    </div>
+                </div>
+
+                <!-- 섹션 3: 칸 종류 -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">🟦 칸 종류</h2>
+                    <div class="guide-card-body tile-descriptions">
+                        <p><strong>🚩 시작점</strong> - 게임을 시작하는 곳</p>
+                        <hr>
+                        <p><strong>🐷 저축 칸</strong> - 안전하게 돈을 모아요</p>
+                        <p class="guide-sub-desc">→ 10골드를 저축에 넣을 수 있어요</p>
+                        <p class="guide-sub-desc">→ 한 바퀴 돌면 이자를 받아요!</p>
+                        <hr>
+                        <p><strong>📈 투자 칸</strong> - 위험하지만 큰돈을 벌 수 있어요</p>
+                        <p class="guide-sub-desc">→ 주식이나 채권을 사고팔아요</p>
+                        <p class="guide-sub-desc">→ 시세가 오르면 돈이 늘어나요</p>
+                        <hr>
+                        <p><strong>❓ 금융퀴즈 칸</strong> - 똑똑한 친구의 기회!</p>
+                        <p class="guide-sub-desc">→ 정답이면 +5골드 🎉</p>
+                        <p class="guide-sub-desc">→ 틀리면 -3골드 😢</p>
+                        <hr>
+                        <p><strong>📰 뉴스 칸</strong> - 세상이 어떻게 변하나요?</p>
+                        <p class="guide-sub-desc">→ 주식뉴스: 회사 소식</p>
+                        <p class="guide-sub-desc">→ 채권뉴스: 돈 빌려주는 곳 소식</p>
+                        <p class="guide-sub-desc">→ 뉴스에 따라 시세가 변해요!</p>
+                        <hr>
+                        <p><strong>🎁 이벤트 칸</strong> - 깜짝 사건이 일어나요</p>
+                        <p class="guide-sub-desc">→ 보너스 골드를 받을 수도 있어요</p>
+                        <hr>
+                        <p><strong>💰 이자지급 칸</strong> - 저축한 돈에 이자가 붙어요</p>
+                        <p class="guide-sub-desc">→ 저축한 골드의 10%를 더 받아요</p>
+                        <hr>
+                        <p><strong>✈️ 금융여행 칸</strong> - 자유롭게 활동을 선택해요</p>
+                        <hr>
+                        <p><strong>☕ 휴식 칸</strong> - 잠시 쉬어가요</p>
+                    </div>
+                </div>
+
+                <!-- 섹션 4: 저축 vs 투자 -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">💡 저축 vs 투자</h2>
+                    <div class="guide-card-body">
+                        <p><strong>🐷 저축이란?</strong></p>
+                        <p class="guide-sub-desc">→ 은행에 돈을 맡기는 거예요</p>
+                        <p class="guide-sub-desc">→ 안전해요! 돈을 잃지 않아요</p>
+                        <p class="guide-sub-desc">→ 이자를 조금 받아요</p>
+                        <br>
+                        <p><strong>📈 투자란?</strong></p>
+                        <p class="guide-sub-desc">→ 회사의 주식이나 채권을 사는 거예요</p>
+                        <p class="guide-sub-desc">→ 잘 되면 돈이 많이 늘어나요</p>
+                        <p class="guide-sub-desc">→ 하지만 잃을 수도 있어요!</p>
+                        <br>
+                        <p>👉 둘 다 잘 활용하는 게 똑똑한 방법이에요!</p>
+                    </div>
+                </div>
+
+                <!-- 섹션 5: 시세는 왜 바뀌나요? -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">📊 시세는 왜 바뀌나요?</h2>
+                    <div class="guide-card-body">
+                        <p><strong>🐂 주식이 올라가요!</strong></p>
+                        <p class="guide-sub-desc">→ 회사가 돈을 많이 벌었을 때</p>
+                        <p class="guide-sub-desc">→ 사람들이 일자리를 많이 얻었을 때</p>
+                        <p class="guide-sub-desc">→ 외국인이 우리나라 주식을 살 때</p>
+                        <br>
+                        <p><strong>🐻 주식이 내려가요...</strong></p>
+                        <p class="guide-sub-desc">→ 회사가 어려울 때</p>
+                        <p class="guide-sub-desc">→ 사람들이 일자리를 잃었을 때</p>
+                        <p class="guide-sub-desc">→ 외국인이 우리나라 주식을 팔 때</p>
+                        <br>
+                        <p><strong>🐰 채권이 올라가요!</strong></p>
+                        <p class="guide-sub-desc">→ 은행 이자가 내려갈 때</p>
+                        <p class="guide-sub-desc">→ 사람들이 돈이 많아질 때</p>
+                        <br>
+                        <p><strong>🐢 채권이 내려가요...</strong></p>
+                        <p class="guide-sub-desc">→ 은행 이자가 올라갈 때</p>
+                        <p class="guide-sub-desc">→ 회사가 망할 위험이 있을 때</p>
+                    </div>
+                </div>
+
+                <!-- 섹션 6: 승리 비법 -->
+                <div class="guide-card">
+                    <h2 class="guide-card-title">🏆 승리하는 비법</h2>
+                    <div class="guide-card-body">
+                        <p>💡 저축을 꾸준히 해요</p>
+                        <p class="guide-sub-desc">→ 한 바퀴 돌면 이자를 받아요!</p>
+                        <br>
+                        <p>💡 뉴스를 잘 보세요</p>
+                        <p class="guide-sub-desc">→ 좋은 뉴스가 나오면 미리 투자!</p>
+                        <br>
+                        <p>💡 너무 욕심내지 마세요</p>
+                        <p class="guide-sub-desc">→ 시세가 너무 높으면 팔 시기예요</p>
+                        <br>
+                        <p>💡 골고루 투자하세요</p>
+                        <p class="guide-sub-desc">→ 주식, 채권, 저축 모두 활용!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
 
         <!-- ==================== 2. 게임 화면 (Game) ==================== -->
         <section id="screen-game" class="screen">

@@ -924,4 +924,100 @@ body {
     color: var(--color-fall);
 }
 
+/* ==========================================
+   6. 게임방법 화면 (Guide Screen) 스타일 (2단계 추가)
+   ========================================== */
+#screen-guide {
+    background: radial-gradient(circle at 50% 0%, #fffef0 0%, #fff9e6 100%);
+}
+
+.guide-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed var(--color-border);
+    padding-bottom: 12px;
+}
+
+.btn-back {
+    font-family: var(--font-fancy);
+    font-size: 15px;
+    height: 38px;
+    padding: 0 14px;
+    border: 2.5px solid #ffffff;
+    border-radius: 12px;
+    background-color: #95a5a6;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #7f8c8d;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #7f8c8d;
+}
+
+.guide-main-title {
+    font-family: var(--font-fancy);
+    font-size: 26px;
+    color: var(--color-text-main);
+    text-shadow: 1px 1px 0px #ffffff;
+}
+
+.guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 24px;
+}
+
+.guide-card {
+    background-color: var(--color-bg-card);
+    border: 3px solid #ffffff;
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.guide-card-title {
+    font-family: var(--font-fancy);
+    font-size: 20px;
+    color: #27ae60; /* 시각적 브랜드 초록 사용 */
+    margin-bottom: 12px;
+    border-bottom: 2px solid rgba(39, 174, 96, 0.15);
+    padding-bottom: 6px;
+}
+
+.guide-card-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-main);
+}
+
+.guide-card-body p {
+    margin-bottom: 6px;
+}
+
+.guide-card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.guide-sub-desc {
+    margin-left: 24px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.tile-descriptions hr {
+    border: none;
+    border-top: 1.5px dashed var(--color-border);
+    margin: 12px 0;
+}
+
+
 

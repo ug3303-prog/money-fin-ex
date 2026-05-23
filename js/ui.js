@@ -8,6 +8,7 @@ const UI = {
     // 1. 엘리먼트 캐싱
     screens: {
         lobby: document.getElementById('screen-lobby'),
+        guide: document.getElementById('screen-guide'),
         game: document.getElementById('screen-game'),
         result: document.getElementById('screen-result')
     },
@@ -165,6 +166,8 @@ const UI = {
     updateGameUI() {
         const players = getPlayers();
         const currentPlayer = getCurrentPlayer();
+        const stockPrice = getStockPrice();
+        const bondPrice = getBondPrice();
 
         // 1. 헤더 턴 정보 업데이트
         if (currentPlayer) {

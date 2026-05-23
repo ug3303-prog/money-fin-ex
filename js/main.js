@@ -9,6 +9,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedPlayerCount = 0;
 
+    // 게임방법 보기 및 돌아가기 버튼 이벤트 바인딩 (2단계 추가)
+    const btnShowGuide = document.getElementById('btn-show-guide');
+    const btnBackToLobby = document.getElementById('btn-back-to-lobby');
+
+    if (btnShowGuide) {
+        btnShowGuide.addEventListener('click', () => {
+            UI.showScreen('guide');
+        });
+    }
+
+    if (btnBackToLobby) {
+        btnBackToLobby.addEventListener('click', () => {
+            UI.showScreen('lobby');
+        });
+    }
+
     // 1. 플레이어 수 선택 버튼 이벤트 바인딩
     UI.btnCounts.forEach(btn => {
         btn.addEventListener('click', (e) => {
