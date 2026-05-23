@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>돈, 모을까 불릴까 금융원정대 - 초등학생 금융 보드게임</title>
+    <!-- 구글 폰트 불러오기 (눈에 잘 띄고 동글동글한 한글 폰트와 모던 폰트 적용) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Neo+Jumuk:wght@400;700&family=Outfit:wght@400;700&family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 
+        역할: 메인 HTML 파일 (게임 진입 구조 및 화면 컴포넌트 뼈대)
+        설명: 시작 화면(Lobby), 게임 플레이 화면(Game), 최종 결과 화면(Result)의 HTML 구조를 정의합니다.
+    -->
+    <div class="app-container">
+        
+        <!-- ==================== 1. 시작 화면 (Lobby) ==================== -->
+        <main id="screen-lobby" class="screen active">
+            <header class="lobby-header">
+                <h1 class="main-title">돈, 모을까 불릴까<br><span class="highlight">금융원정대</span></h1>
+                <p class="subtitle">💰 초등학생 금융 보드게임</p>
+            </header>
+
+            <section class="lobby-content">
+                <!-- 플레이어 수 선택 영역 -->
+                <div class="selection-card">
+                    <h2 class="selection-title">몇 명이 함께 할까요? 🤔</h2>
+                    <div class="player-count-buttons">
+                        <button type="button" class="btn-count" data-count="2">2명</button>
+                        <button type="button" class="btn-count" data-count="3">3명</button>
+                        <button type="button" class="btn-count" data-count="4">4명</button>
+                    </div>
+                </div>
+
+                <!-- 닉네임 입력 영역 (선택 시 동적으로 생성될 공간) -->
+                <div id="nickname-area" class="nickname-card hidden">
+                    <h2 class="selection-title">친구들의 이름을 적어줘! ✏️</h2>
+                    <div id="nickname-inputs-container" class="inputs-container">
+                        <!-- 동적으로 입력 인풋들이 여기에 생성됨 -->
+                    </div>
+                </div>
+            </section>
+
+            <footer class="lobby-footer">
+                <button type="button" id="btn-start-game" class="btn-primary large hidden">🎮 게임 시작!</button>
+            </footer>
+        </main>
+
+        <!-- ==================== 2. 게임 화면 (Game) ==================== -->
+        <section id="screen-game" class="screen">
+            <!-- 2-1. 최상단 헤더 정보 영역 -->
+            <header class="game-header">
+                <div class="header-info">
+                    <span id="game-turn-player" class="turn-player">🔴 플레이어1 차례</span>
+                    <span id="game-turn-lap" class="turn-lap">1바퀴 중 0/16</span>
+                </div>
+            </header>
+
+            <!-- 2-2. 플레이어 정보 가로 패널 -->
+            <div id="player-status-panel" class="player-status-panel">
+                <!-- 동적으로 플레이어 이름 및 골드 잔액 리스트 추가됨 -->
+                <!-- 예: 🔴철수 100G | 🔵영희 100G -->
+            </div>
+
+            <!-- 2-2-b. 주식/채권 실시간 시세 표시판 (2단계 추가) -->
+            <div id="market-board">
+                <!-- 주식 시세 카드 -->
+                <div id="stock-card" class="market-card">
+                    <div id="stock-limit-badge" class="limit-badge hidden">최고치!</div>
+                    <div class="card-header">
+                        <span class="card-title">📈 주식</span>
+                        <span id="stock-trend-icon" class="trend-icon">➡️</span>
+                    </div>
+                    <div class="card-price-row">
+                        <span id="stock-price-display" class="price-display">10</span>
+                        <span class="price-unit">G</span>
+                    </div>
+                    <div class="card-diff-row">
+                        <span id="stock-diff-display" class="diff-val">-</span>
+                    </div>
+                </div>
+
+                <!-- 채권 시세 카드 -->
+                <div id="bond-card" class="market-card">
+                    <div id="bond-limit-badge" class="limit-badge hidden">최고치!</div>
+                    <div class="card-header">
+                        <span class="card-title">📜 채권</span>
+                        <span id="bond-trend-icon" class="trend-icon">➡️</span>
+                    </div>
+                    <div class="card-price-row">
+                        <span id="bond-price-display" class="price-display">10</span>
+                        <span class="price-unit">G</span>
+                    </div>
+                    <div class="card-diff-row">
+                        <span id="bond-diff-display" class="diff-val">-</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 2-3. 메인 5x5 보드 영역 (4x4 외곽 16칸 배치) -->
+
+            <div class="board-wrapper">
+                <div id="game-board" class="game-board">
+                    <!-- board.js 데이터를 토대로 ui.js가 여기에 16개 칸 동적 생성 -->
+                    
+                    <!-- 보드판 정중앙 (3x3 빈공간 활용) 데코레이션 카드 -->
+                    <div class="board-center-card">
+                        <div class="center-logo">💰</div>
+                        <div class="center-text">금융원정대</div>
+                        <div id="center-message" class="center-message">주사위를 굴려봐!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2-4. 하단 컨트롤 영역 -->
+            <footer class="game-footer">
+                <div class="controls-container">
+                    <!-- 주사위 결과 표시 영역 -->
+                    <div class="dice-display-area">
+                        <div id="dice-visual" class="dice-visual">🎲</div>
+                    </div>
+                    <!-- 주사위 던지기 큰 단추 -->
+                    <button type="button" id="btn-roll-dice" class="btn-primary btn-roll">🎲 주사위 굴리기</button>
+                </div>
+            </footer>
+        </section>
+
+        <!-- ==================== 3. 결과 화면 (Result) ==================== -->
+        <section id="screen-result" class="screen">
+            <header class="result-header">
+                <h1 class="main-title">🏆 원정대 결과</h1>
+                <p class="subtitle">모두 대단한 금융원정대였어요!</p>
+            </header>
+            
+            <div class="result-content">
+                <div id="winner-podium" class="winner-podium">
+                    <!-- 1등 트로피 표시 영역 -->
+                </div>
+                <div id="final-ranking-list" class="final-ranking-list">
+                    <!-- 최종 등수와 자산 상세 내역 -->
+                </div>
+            </div>
+
+            <footer class="result-footer">
+                <button type="button" id="btn-restart" class="btn-primary large">🔄 다시 도전하기!</button>
+            </footer>
+        </section>
+    </div>
+
+    <!-- ==================== 4. 공용 금융 모달 (Modal) ==================== -->
+    <div id="game-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-title" class="modal-title-text">💰 투자 은행</h2>
+            <div id="modal-body" class="modal-body-content">
+                <!-- 동적으로 본문 텍스트 채움 -->
+            </div>
+            <div id="modal-footer" class="modal-footer-buttons">
+                <!-- 동적으로 버튼 생성 -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 스크립트 파일 로드 (의존성 순서 유지) -->
+    <script src="js/gameState.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/cards.js"></script>
+    <script src="js/market.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

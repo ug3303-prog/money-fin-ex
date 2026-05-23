@@ -1,0 +1,927 @@
+/* ==========================================
+   역할: 전역 스타일시트 (style.css)
+   설명: 밝고 따뜻한 노랑/초록 파스텔 톤 테마, 모바일 우선(Mobile-First) 디자인,
+         큼직한 아동 친화적 폰트와 간편한 버튼 터치 인터페이스를 구현합니다.
+   ========================================== */
+
+/* 1. 디자인 시스템 토큰 & 리셋 */
+:root {
+    --color-bg-primary: #fffdf6;      /* 따뜻한 크림빛 흰색 */
+    --color-bg-card: rgba(255, 255, 255, 0.9);
+    --color-brand-yellow: #ffd32a;    /* 주조색: 활기찬 노랑 */
+    --color-brand-green: #2bcbba;     /* 보조색: 싱그러운 민트초록 */
+    --color-brand-green-hover: #0fbcf9;
+    --color-text-main: #2d3436;       /* 부드러운 검은색 */
+    --color-text-muted: #7f8c8d;
+    --color-shadow: rgba(45, 52, 54, 0.08);
+    --color-border: #dfe6e9;
+
+    /* 플레이어 고유 색상 */
+    --color-p1-red: #ff5e57;
+    --color-p2-blue: #3c40c6;
+    --color-p3-green: #0be881;
+    --color-p4-yellow: #ffa801;
+
+    /* 2단계 투자 시세용 색상 시스템 */
+    --color-rise: #E53935;            /* 한국식 시세 상승: 빨강 */
+    --color-fall: #1E88E5;            /* 한국식 시세 하락: 파랑 */
+    --color-stable: #9E9E9E;          /* 변동 없음: 회색 */
+
+    --font-fancy: 'Jua', 'Nanum Neo Jumuk', sans-serif;
+    --font-normal: 'Outfit', 'Nanum Neo Jumuk', sans-serif;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /* 모바일 터치 깜빡임 방지 */
+}
+
+body {
+    font-family: var(--font-normal);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 모바일 우선 컨테이너 (최대 가로폭 480px의 세로 스크롤형 스마트폰 비율) */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    min-height: 568px; /* 구형 단말 대응 최소 높이 */
+    background: radial-gradient(circle at 50% 0%, #fffef0 0%, #fff9e6 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    /* PC/태블릿 뷰에서는 카드 형태로 예쁘게 띄워줌 */
+    .app-container {
+        height: 85vh;
+        max-height: 850px;
+        border-radius: 32px;
+        border: 8px solid #ffffff;
+        box-shadow: 0 20px 50px rgba(45, 52, 54, 0.15);
+    }
+}
+
+/* 화면 기본 정의 */
+.screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   2. 시작 화면 (Lobby) 스타일
+   ========================================== */
+
+.lobby-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.main-title {
+    font-family: var(--font-fancy);
+    font-size: 32px;
+    line-height: 1.2;
+    color: #2c3e50;
+    text-shadow: 2px 2px 0px #ffffff, 4px 4px 0px var(--color-brand-yellow);
+}
+
+.main-title .highlight {
+    color: #27ae60;
+    font-size: 38px;
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-text-muted);
+}
+
+.lobby-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 홈카드 스타일 */
+.selection-card, .nickname-card {
+    background-color: var(--color-bg-card);
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 24px var(--color-shadow);
+    transition: transform 0.2s ease;
+}
+
+.selection-title {
+    font-family: var(--font-fancy);
+    font-size: 20px;
+    color: #2d3436;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* 인원 선택 버튼 레이아웃 */
+.player-count-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn-count {
+    flex: 1;
+    height: 52px;
+    min-width: 70px;
+    font-family: var(--font-fancy);
+    font-size: 18px;
+    border: 3px solid var(--color-border);
+    border-radius: 14px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-count:hover {
+    transform: translateY(-2px);
+}
+
+.btn-count.selected {
+    background-color: var(--color-brand-yellow);
+    border-color: #f39c12;
+    color: #34495e;
+    box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+    transform: scale(1.05);
+}
+
+/* 닉네임 입력칸 레이아웃 */
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nickname-input-group {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: border-color 0.2s ease;
+}
+
+.nickname-input-group:focus-within {
+    border-color: var(--color-brand-green);
+}
+
+.player-emoji {
+    font-size: 24px;
+    margin-right: 12px;
+}
+
+.nickname-input-group input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-family: var(--font-normal);
+    padding: 4px;
+}
+
+/* 버튼 정의 */
+.btn-primary {
+    font-family: var(--font-fancy);
+    font-size: 20px;
+    border: none;
+    border-radius: 16px;
+    color: #ffffff;
+    background-color: var(--color-brand-green);
+    cursor: pointer;
+    box-shadow: 0 6px 0px #16a085;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0px #16a085;
+}
+
+.btn-primary.large {
+    height: 56px;
+    margin-top: 10px;
+}
+
+.lobby-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    padding-bottom: 12px;
+}
+
+
+/* ==========================================
+   3. 게임 플레이 화면 (Game) 스타일
+   ========================================== */
+
+.game-header {
+    margin-bottom: 12px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 8px 16px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.turn-player {
+    font-family: var(--font-fancy);
+    font-size: 18px;
+    color: var(--color-text-main);
+}
+
+.turn-lap {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-text-muted);
+}
+
+/* 플레이어 자산 현황 패널 (가로 정렬) */
+.player-status-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.status-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    padding: 8px 4px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.status-card.active-player {
+    background: #ffffff;
+    border-color: var(--color-brand-yellow);
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.25);
+    transform: scale(1.05);
+}
+
+.status-name {
+    font-family: var(--font-fancy);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.status-gold {
+    font-family: var(--font-fancy);
+    font-size: 15px;
+    color: #e67e22;
+}
+
+.status-assets-detail {
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1.5px dashed var(--color-border);
+    font-size: 10px;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.asset-line {
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+/* ==========================================
+   실시간 시세 표시판 스타일 (2단계 추가)
+   ========================================== */
+#market-board {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.market-card {
+    flex: 1;
+    background-color: var(--color-bg-card);
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 8px 24px var(--color-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.market-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 최고치 / 최저치 뱃지 */
+.limit-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2f3542;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 10;
+    animation: badgeBounce 0.4s ease infinite alternate;
+}
+
+@keyframes badgeBounce {
+    from { transform: translateX(-50%) translateY(0); }
+    to { transform: translateX(-50%) translateY(-2px); }
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.card-title {
+    font-family: var(--font-fancy);
+    font-size: 16px;
+    color: var(--color-text-main);
+}
+
+.trend-icon {
+    font-size: 18px;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.15));
+}
+
+.card-price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin: 4px 0;
+}
+
+.price-display {
+    font-family: var(--font-fancy);
+    font-size: 32px;
+    color: #2d3436;
+    line-height: 1;
+    display: inline-block;
+}
+
+.price-unit {
+    font-family: var(--font-fancy);
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin-left: 2px;
+}
+
+.card-diff-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 20px;
+}
+
+.diff-val {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--color-text-muted);
+}
+
+.diff-val.rise {
+    color: var(--color-rise);
+}
+
+.diff-val.fall {
+    color: var(--color-fall);
+}
+
+/* 시세 변동 깜빡임 및 수치 튀기기 애니메이션 */
+@keyframes riseBlink {
+    0% { background-color: rgba(229, 57, 53, 0.25); box-shadow: 0 0 20px rgba(229, 57, 53, 0.4); }
+    100% { background-color: var(--color-bg-card); }
+}
+
+@keyframes fallBlink {
+    0% { background-color: rgba(30, 136, 229, 0.25); box-shadow: 0 0 20px rgba(30, 136, 229, 0.4); }
+    100% { background-color: var(--color-bg-card); }
+}
+
+.blink-rise {
+    animation: riseBlink 0.4s ease-out;
+}
+
+.blink-fall {
+    animation: fallBlink 0.4s ease-out;
+}
+
+@keyframes diffPop {
+    0% { transform: scale(1.6); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.85; }
+}
+
+.animate-pop {
+    animation: diffPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+/* 5x5 보드판 래퍼 */
+
+.board-wrapper {
+    width: 100%;
+    aspect-ratio: 1; /* 정사각형 강제 유지 */
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 6px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 보드판의 개별 칸 */
+.board-tile {
+    border-radius: 12px;
+    border: 2px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 4px;
+    box-shadow: 0 4px 8px var(--color-shadow);
+    background-color: #ffffff;
+    transition: transform 0.1s ease;
+}
+
+.tile-emoji {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.tile-name {
+    font-family: var(--font-fancy);
+    font-size: 11px;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 플레이어 말(Token) 래핑 컴포넌트 */
+.tile-tokens {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+}
+
+.token {
+    font-size: 13px;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));
+    animation: tokenBounce 0.5s ease infinite alternate;
+}
+
+@keyframes tokenBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-3px); }
+}
+
+/* 정중앙 카드 레이아웃 (grid-area: 2 / 2 / 5 / 5) */
+.board-center-card {
+    grid-area: 2 / 2 / 5 / 5;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    border: 3px dashed var(--color-brand-yellow);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    text-align: center;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+.center-logo {
+    font-size: 32px;
+    margin-bottom: 2px;
+    animation: pulse 1.5s infinite alternate;
+}
+
+.center-text {
+    font-family: var(--font-fancy);
+    font-size: 20px;
+    color: #27ae60;
+    text-shadow: 1px 1px 0px #ffffff;
+    margin-bottom: 4px;
+}
+
+.center-message {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--color-text-muted);
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.15); }
+}
+
+/* 하단 주사위 컨트롤 컨테이너 */
+.game-footer {
+    margin-top: auto;
+    padding-bottom: 12px;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.dice-display-area {
+    width: 64px;
+    height: 64px;
+    background-color: #ffffff;
+    border: 3px solid var(--color-brand-yellow);
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dice-visual {
+    font-size: 36px;
+    transition: transform 0.5s ease;
+}
+
+.btn-roll {
+    height: 52px;
+    box-shadow: 0 6px 0px #d35400;
+    background-color: #e67e22;
+}
+
+.btn-roll:active {
+    box-shadow: 0 2px 0px #d35400;
+}
+
+
+/* ==========================================
+   4. 결과 화면 (Result) 스타일
+   ========================================== */
+
+.result-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.result-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.winner-podium {
+    text-align: center;
+    background: #ffffff;
+    border: 4px solid var(--color-brand-yellow);
+    border-radius: 24px;
+    padding: 24px;
+    width: 100%;
+    box-shadow: 0 10px 24px rgba(241, 196, 15, 0.2);
+}
+
+.podium-crown {
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.podium-name {
+    font-family: var(--font-fancy);
+    font-size: 26px;
+    color: var(--color-text-main);
+    margin-bottom: 4px;
+}
+
+.podium-gold {
+    font-family: var(--font-fancy);
+    font-size: 20px;
+    color: #e67e22;
+}
+
+.final-ranking-list {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 16px;
+    border: 2px solid #ffffff;
+}
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1.5px dashed var(--color-border);
+}
+
+.ranking-item:last-child {
+    border-bottom: none;
+}
+
+.rank-badge {
+    font-family: var(--font-fancy);
+    font-size: 16px;
+    color: var(--color-text-muted);
+    width: 48px;
+}
+
+.rank-item-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rank-name {
+    font-family: var(--font-fancy);
+    font-size: 16px;
+}
+
+.rank-gold {
+    font-family: var(--font-fancy);
+    font-size: 16px;
+    color: #e67e22;
+}
+
+.result-footer {
+    margin-top: auto;
+    padding-bottom: 12px;
+}
+
+/* ==========================================
+   5. 공용 모달창 (Modal Window) 스타일 (2단계 추가)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(45, 52, 54, 0.45); /* 반투명 어두운 배경 */
+    backdrop-filter: blur(8px);               /* 뒤편 블러 처리 (글래스모피즘) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fffdf6;
+    border: 4px solid #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    width: 100%;
+    max-width: 380px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    animation: modalScaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalScaleUp {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title-text {
+    font-family: var(--font-fancy);
+    font-size: 22px;
+    color: var(--color-text-main);
+    text-align: center;
+    border-bottom: 2px dashed var(--color-border);
+    padding-bottom: 10px;
+}
+
+.modal-body-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.modal-body-content strong {
+    color: var(--color-text-main);
+    font-size: 17px;
+}
+
+.modal-footer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* 모달 내 버튼 정의 */
+.btn-modal {
+    font-family: var(--font-fancy);
+    font-size: 18px;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    transition: all 0.15s ease;
+}
+
+.btn-modal:active {
+    transform: translateY(2px);
+}
+
+.btn-modal:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none; /* 클릭 이벤트 차단 */
+}
+
+/* 투자 거래 액션별 버튼 테마 색상 */
+.btn-buy-stock {
+    background-color: var(--color-rise);
+    box-shadow: 0 4px 0px #b71c1c;
+}
+.btn-buy-stock:active {
+    box-shadow: 0 1px 0px #b71c1c;
+}
+
+.btn-buy-bond {
+    background-color: var(--color-brand-green);
+    box-shadow: 0 4px 0px #16a085;
+}
+.btn-buy-bond:active {
+    box-shadow: 0 1px 0px #16a085;
+}
+
+.btn-sell-stock {
+    background-color: #f39c12;
+    box-shadow: 0 4px 0px #d35400;
+}
+.btn-sell-stock:active {
+    box-shadow: 0 1px 0px #d35400;
+}
+
+.btn-sell-bond {
+    background-color: #34495e;
+    box-shadow: 0 4px 0px #2c3e50;
+}
+.btn-sell-bond:active {
+    box-shadow: 0 1px 0px #2c3e50;
+}
+
+.btn-close-modal {
+    background-color: #95a5a6;
+    box-shadow: 0 4px 0px #7f8c8d;
+}
+.btn-close-modal:active {
+    box-shadow: 0 1px 0px #7f8c8d;
+}
+
+/* ==========================================
+   뉴스 카드 모달 테마 (2단계 추가)
+   ========================================== */
+.stock-news-card {
+    border: 4px solid var(--color-fall) !important; /* 주식 뉴스는 파란 테두리 */
+}
+
+.bond-news-card {
+    border: 4px solid var(--color-brand-green) !important; /* 채권 뉴스는 초록 테두리 */
+}
+
+/* 상단 띠 연출 */
+.news-header-band {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    margin-top: -24px;
+    height: 16px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    background-color: var(--color-stable);
+}
+
+.news-rise .news-header-band {
+    background-color: var(--color-rise); /* 상승 카드는 빨간색 띠 */
+}
+
+.news-fall .news-header-band {
+    background-color: var(--color-fall); /* 하락 카드는 파란색 띠 */
+}
+
+.news-body-text {
+    font-family: var(--font-normal);
+    font-size: 19px !important;
+    font-weight: bold;
+    color: var(--color-text-main) !important;
+    line-height: 1.6;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.news-effect-box {
+    background-color: #f1f2f6;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: var(--font-fancy);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+}
+
+.news-rise .news-effect-box {
+    background-color: rgba(229, 57, 53, 0.08);
+    color: var(--color-rise);
+}
+
+.news-fall .news-effect-box {
+    background-color: rgba(30, 136, 229, 0.08);
+    color: var(--color-fall);
+}
+
+
