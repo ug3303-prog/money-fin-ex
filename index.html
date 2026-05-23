@@ -182,9 +182,12 @@
         <section id="screen-game" class="screen">
             <!-- 2-1. 최상단 헤더 정보 영역 -->
             <header class="game-header">
-                <div class="header-info">
-                    <span id="game-turn-player" class="turn-player">🔴 플레이어1 차례</span>
-                    <span id="game-turn-lap" class="turn-lap">1바퀴 중 0/16</span>
+                <div class="header-info" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span id="game-turn-player" class="turn-player">🔴 플레이어1 차례</span>
+                        <span id="game-turn-lap" class="turn-lap">1바퀴 중 0/16</span>
+                    </div>
+                    <button type="button" id="btn-game-reset" class="btn-reset-small">🔄 처음으로</button>
                 </div>
             </header>
 

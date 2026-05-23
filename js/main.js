@@ -113,15 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // 9) 1초 대기 후 다음 턴 전환 또는 게임 종료 처리
                     setTimeout(() => {
+                        // 다음 플레이어로 차례 교대 및 화면 갱신
+                        advanceTurn();
+                        UI.updateGameUI();
+
                         // 게임 종료 확인
                         if (checkIsGameOver()) {
                             UI.renderResultScreen();
                             UI.showScreen('result');
                         } else {
-                            // 다음 플레이어로 차례 교대 및 화면 갱신
-                            advanceTurn();
-                            UI.updateGameUI();
-                            
                             // 주사위 버튼 재활성화
                             UI.btnRollDice.disabled = false;
                             
@@ -255,6 +255,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // 로비 스크린으로 전환
         UI.showScreen('lobby');
     });
+
+    const btnGameReset = document.getElementById('btn-game-reset');
+    if (btnGameReset) {
+        btnGameReset.addEventListener('click', () => {
+            const confirmReset = confirm("정말로 게임을 처음부터 다시 시작할까요?");
+            if (confirmReset) {
+                // 인원수 선택 원복 및 화면 가리기
+                UI.btnCounts.forEach(btn => btn.classList.remove('selected'));
+                UI.nicknameArea.classList.add('hidden');
+                UI.btnStartGame.classList.add('hidden');
+                selectedPlayerCount = 0;
+                UI.showScreen('lobby');
+            }
+        });
+    }
 });
 
 
