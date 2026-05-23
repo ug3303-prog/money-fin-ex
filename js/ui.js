@@ -166,8 +166,6 @@ const UI = {
     updateGameUI() {
         const players = getPlayers();
         const currentPlayer = getCurrentPlayer();
-        const stockPrice = getStockPrice();
-        const bondPrice = getBondPrice();
 
         // 1. 헤더 턴 정보 업데이트
         if (currentPlayer) {
@@ -198,8 +196,8 @@ const UI = {
             statusCard.appendChild(goldSpan);
 
             // 2단계 추가: 주식/채권 보유 현황 및 현재 평가가치 표시
-            const stockVal = (player.stocks || 0) * stockPrice;
-            const bondVal = (player.bonds || 0) * bondPrice;
+            const stockVal = (player.stocks || 0) * getStockPrice();
+            const bondVal = (player.bonds || 0) * getBondPrice();
 
             const assetsDiv = document.createElement('div');
             assetsDiv.className = 'status-assets-detail';

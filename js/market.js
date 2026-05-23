@@ -174,3 +174,12 @@ function applyNewsCard(card) {
     }
 }
 
+// 글로벌 노출 (4단계 대응)
+window.getStockPrice = getStockPrice;
+window.getBondPrice = getBondPrice;
+window.initMarket = initMarket;
+window.updateStockPrice = updateStockPrice;
+window.updateBondPrice = updateBondPrice;
+window.getPrevStockPrice = getPrevStockPrice;
+window.getPrevBondPrice = getPrevBondPrice;
+
